@@ -4,6 +4,11 @@
     box-sizing: border-box;
 }
 
+#app {
+    display: flex;
+    flex-flow: column;
+}
+
 #messageBody {
     margin: 10px;
     padding: 10px;

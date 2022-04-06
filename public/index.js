@@ -1,9 +1,9 @@
 'use strict';
 
-console.log('Hello from JavaScript');
+const messageBody = document.getElementById('messageBody');
+const submitButton = document.getElementById('submitButton');
+const timeline = document.getElementById('timeline');
 
-void (async () => {
-    const res = await fetch('/index.js');
-    const text = await res.text();
-    console.log(text);
-})();
+const msgElement = document.createElement('div');
+msgElement.textContent = 'Saluton!';
+timeline.appendChild(msgElement);

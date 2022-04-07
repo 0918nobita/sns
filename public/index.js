@@ -9,7 +9,7 @@ void (async () => {
     const comments = await res.json();
     for (const comment of comments) {
         const msgElement = document.createElement('div');
-        msgElement.textContent = comment;
+        msgElement.textContent = comment.body;
         timeline.appendChild(msgElement);
     }
 })();

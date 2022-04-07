@@ -2,6 +2,7 @@ module Program
 
 open System
 open System.Data.SQLite
+open Dapper
 open FSharp.Json
 open Suave
 open Suave.Filters
@@ -42,19 +43,16 @@ let useSQLiteConn (dataSource: string) (f: SQLiteConnection -> 'a) : 'a option =
     with
     | :? SQLiteException -> None
 
+type Comment = { id: int64; body: string }
+
 let timeline =
     GET
     >=> path "/timeline"
     >=> warbler (fun _ctx ->
         useSQLiteConn "db.sqlite" (fun conn ->
-            use cmd = conn.CreateCommand()
-            cmd.CommandText <- "SELECT * From timeline"
-            cmd.Prepare()
-            let reader = cmd.ExecuteReader()
-            let mutable comments = []
-
-            while reader.Read() do
-                comments <- reader.GetString(1) :: comments
+            let comments =
+                conn.Query<Comment>("select * from timeline")
+                |> Seq.toList
 
             sendJson comments)
         |> Option.orDefault (fun () -> ServerErrors.INTERNAL_ERROR "Something went wrong while collecting comments"))

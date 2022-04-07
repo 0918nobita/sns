@@ -1,16 +1,12 @@
 #r "nuget: System.Data.SQLite.Core, 1.0.115.5"
 
-open System.Data.SQLite
+#load "shared/sqlite.fs"
+
 open System.IO
 
-let () =
-    if File.Exists("db.sqlite") then File.Delete("db.sqlite")
+if File.Exists("db.sqlite") then File.Delete("db.sqlite")
 
-    let connStr = SQLiteConnectionStringBuilder(DataSource = "db.sqlite").ToString()
-    use conn = new SQLiteConnection(connStr)
-
-    conn.Open()
-
+SQLiteUtil.useSQLiteConn "db.sqlite" (fun conn ->
     use cmd = conn.CreateCommand()
 
     cmd.CommandText <- "CREATE TABLE timeline(id INTEGER PRIMARY KEY, body TEXT NOT NULL)"
@@ -29,5 +25,4 @@ let () =
         cmd.ExecuteNonQuery() |> ignore
         cmd.Parameters.Clear()
     )
-
-    conn.Close()
+)

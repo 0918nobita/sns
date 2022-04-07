@@ -1,0 +1,7 @@
+{
+    "schema": "./graphql/schema.graphql",
+    "queries": "./graphql/queries",
+    "project": "GQLClient",
+    "output": "./graphql/generated",
+    "target": "fable"
+}

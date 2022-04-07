@@ -1,0 +1,8 @@
+type Query {
+    timeline: [Comment]
+}
+
+type Comment {
+    id: ID!
+    body: String
+}

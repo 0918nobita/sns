@@ -1,4 +1,6 @@
-/.ionide/
-/bin/
-/obj/
+.ionide/
+bin/
+obj/
+/graphql/generated/
+/public/bundle.js
 /db.sqlite

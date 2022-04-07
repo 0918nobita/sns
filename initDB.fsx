@@ -1,6 +1,6 @@
 #r "nuget: System.Data.SQLite.Core, 1.0.115.5"
 
-#load "shared/sqlite.fs"
+#load "sqlite.fs"
 
 open System.IO
 
